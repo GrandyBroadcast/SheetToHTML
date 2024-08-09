@@ -21,17 +21,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-function loadTemplate(name) {
-    return new Promise((resolve, reject) => {
-		console.log(`Loading template: '${name}'`);
-		var scriptElement = loadScript(`https://cdn.jsdelivr.net/gh/GrandyB/SheetToHTML@lobby/templates/${name}/script.js`);
-		scriptElement.onload = function () {
-			load();
-			addStylesheet(`https://cdn.jsdelivr.net/gh/GrandyB/SheetToHTML@lobby/templates/${name}/styles.css`);
-			resolve();
-		};
-		scriptElement.onerror = function () {
-			reject(new Error(`Failed to load template '${name}'`));
-		};
-	});
+function load() {
+    var dom = document.getElementById("main");
+
+    var html = "";
+
+    const leftRef = getAndCheckURLParam("left");
+    const rightRef = getAndCheckURLParam("right");
+    const centreRef = getAndCheckURLParam("centre");
+
+    // TALENT NAMES AND HANDLES
+    html += partialBoxCentered({ class: 'talent left', content: `<span id="${leftRef}"></span>`});
+    html += partialBoxCentered({ class: 'talent centre', content: `<span id="${centreRef}"></span>`});
+    html += partialBoxCentered({ class: 'talent right', content: `<span id="${rightRef}"></span>`});
+
+    dom.innerHTML += html;
 }

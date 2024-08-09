@@ -21,17 +21,37 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-function loadTemplate(name) {
-    return new Promise((resolve, reject) => {
-		console.log(`Loading template: '${name}'`);
-		var scriptElement = loadScript(`https://cdn.jsdelivr.net/gh/GrandyB/SheetToHTML@lobby/templates/${name}/script.js`);
-		scriptElement.onload = function () {
-			load();
-			addStylesheet(`https://cdn.jsdelivr.net/gh/GrandyB/SheetToHTML@lobby/templates/${name}/styles.css`);
-			resolve();
-		};
-		scriptElement.onerror = function () {
-			reject(new Error(`Failed to load template '${name}'`));
-		};
-	});
+function load() {
+  var dom = document.getElementById("main");
+
+  var rowAttributes = { height: 57, class: 'padding', alignment: 'flex-center-center', style: 'font-size: 35px;' };
+  var rowName = { ...rowAttributes, style: rowAttributes.style + "color: #fff;"};
+  var rowScore = { ...rowAttributes, style: rowAttributes.style + "color: #000;"};
+
+  var cols = [
+      { width: 56, height: 57, image: true },
+      { width: 248, ...rowName },
+      { width: 58, ...rowScore }
+  ];
+
+  function matchup(cellRef, left, top) {
+      dom.innerHTML += table(cellRef, 2, { left: left, top: top}, 8, 78, cols);
+  }
+
+  var left = 82;
+  matchup('B3', left, 495);
+  matchup('B7', left, 713);
+
+  left = 524;
+  matchup('F3', left, 454);
+  matchup('F7', left, 674);
+
+  left = 971;
+  matchup('J3', left, 416);
+  matchup('J7', left, 636);
+
+  left = 1439;
+  matchup('N5', left, 526);
+
+  matchup('N9', left, 829);
 }

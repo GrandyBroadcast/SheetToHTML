@@ -1,0 +1,230 @@
+body {
+    width: 1920px;
+    overflow: hidden;
+}
+
+.player {
+    font-size: 70px;
+    color: white;
+    text-shadow: 0px 0px 4px rgba(0,0,0,1);
+}
+
+.round-info {
+    position: absolute;
+    top: 255px;
+    display: flex;
+    flex-direction: row;
+    width: calc(100% - 300px);
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    color: white;
+    gap: 30px;
+}
+.round-info > div {
+    width: 50%;
+    height: 30px;
+    text-shadow: 0px 0px 4px rgba(0,0,0,1);
+}
+
+.map-draft, .civ-draft {
+    display: flex;
+    flex-direction: row;
+}
+.civ-draft {
+    gap: 8px;
+    max-width: 580px;
+}
+.map-draft .map.used, .civ-draft .civ.used {
+    filter: grayscale(30%) brightness(60%);
+    opacity: 0.75;
+}
+.map-draft .map {
+    zoom: 0.9;
+}
+
+.draft {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    top: 150px;
+    flex-direction: column;
+    width: 580px;
+}
+.draft.left {
+    left: 5px;
+    align-items: flex-end;
+}
+.draft.right {
+    right: 310px;
+    align-items: flex-start;
+}
+.draft.left .map-draft {
+    flex-direction: row-reverse;
+}
+.draft.left .civ-draft {
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+}
+.draft.right .civ-draft {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.map-img {
+    width: 100px;
+}
+.civ {
+    position: relative;
+    height: 100%;
+}
+.draft .civ:not(.not-empty) {
+    display: none;
+}
+.civ-img.empty {
+    display: none;
+}
+.civ-img {
+    height: 50px;
+    width: auto;
+}
+.civ-win, .civ-ban, .civ-snipe {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+.civ-win {
+    height: 30px;
+    top: 0;
+}
+.civ-ban, .civ-snipe {
+    height: 97px;
+    top: calc(50% - 2px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.game:not(.current) .left-civ.loss, .game:not(.current) .right-civ.loss  {
+    filter: grayscale(70%) brightness(30%);
+}
+.left-civ.win .civ-win, .right-civ.win .civ-win {
+    display: block;
+}
+.civ.Ban .civ-ban, .civ.Snipe .civ-snipe {
+    display: block;
+}
+.civ.Ban > .civ-img, .civ.Snipe > .civ-img {
+    filter: grayscale(20%) brightness(70%);
+}
+.civ-img.empty ~ .civ-ban, .civ-img.empty ~ .civ-snipe {
+    display: none;
+}
+
+.map {
+    position: relative;
+}
+.map .entry {
+    padding: 6px;
+}
+.map-border-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.map-name {
+    position: absolute;
+    left: 50%;
+    bottom: 15px;
+    max-width: 100%;
+    white-space: wrap;
+    transform: translateX(-50%);
+    color: white;
+    text-align: center;
+    line-height: 0.9em;
+    font-size: 1.4em;
+    text-shadow: 0px 0px 4px rgba(0,0,0,1);
+}
+
+.games {
+    position: absolute;
+    top: 760px;
+    left: calc(50% - 150px);
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: row;
+}
+.game {
+    position: relative;
+    margin: 0 25px;
+    height: 110px;
+}
+.game .left-civ {
+    position: absolute;
+    left: 0;
+    top: 30px;
+    transform: translate(-50%, 0);
+}
+.game .right-civ {
+    position: absolute;
+    right: 0px;
+    top: 30px;
+    transform: translate(50%, 0);
+}
+.game .civ-img {
+    height: 45px;
+}
+
+.games .game:not(.current):not(.past) .map {
+    filter: grayscale(20%) brightness(70%);
+}
+.games .game.current {
+    box-shadow: rgb(255 255 255 / 75%) 0px 0px 0px 0px, 
+                rgb(255 255 255 / 60%) 0px 0px 2px 6px, 
+                rgb(255 255 255 / 45%) 0px 0px 5px 12px, 
+                rgb(255 255 255 / 30%) 0px 0px 15px 24px;
+}
+
+.current-game {
+    position: absolute;
+    top: 525px;
+    left: calc(50% - 150px);
+    transform: translate(-50%, -50%) scale(2.5);
+    display: flex;
+    flex-direction: row;
+}
+#main.cams-3 .current-game {
+    display: none;
+}
+
+#lobby-info {
+    width: 400px;
+    position: absolute;
+    left: calc(50% - 150px);
+    font-size: 30px;
+    transform: translate(-50%, 0);
+    color: white;
+    text-shadow: 0px 0px 4px rgba(0,0,0,1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.2;
+}
+#main.cams-2 #lobby-info {
+    top: 665px;
+}
+#main.cams-3 #lobby-info {
+    top: 310px;
+}
+#timer-output {
+    font-size: 50px;
+}
+
+.talent {
+    font-size: 30px;
+    color: white;
+    text-shadow: 0px 0px 4px rgba(0,0,0,1);
+}

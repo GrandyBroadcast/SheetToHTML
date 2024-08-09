@@ -21,17 +21,24 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-function loadTemplate(name) {
-    return new Promise((resolve, reject) => {
-		console.log(`Loading template: '${name}'`);
-		var scriptElement = loadScript(`https://cdn.jsdelivr.net/gh/GrandyB/SheetToHTML@lobby/templates/${name}/script.js`);
-		scriptElement.onload = function () {
-			load();
-			addStylesheet(`https://cdn.jsdelivr.net/gh/GrandyB/SheetToHTML@lobby/templates/${name}/styles.css`);
-			resolve();
-		};
-		scriptElement.onerror = function () {
-			reject(new Error(`Failed to load template '${name}'`));
-		};
-	});
+function load() {
+    var dom = document.getElementById("main");
+    
+    const startRef = getAndCheckURLParam("cell");
+
+
+    var h = 73;
+    var alignCenter = { alignment: 'flex-center-center', height: h, class: 'padding' };
+    var alignLeft = { alignment: 'flex-center-left', height: h, class: 'padding' };
+    var image = { width: 78, height: h, image: true };
+
+    var cols = [
+        image,
+        { width: 376, ...alignLeft, style: "color: #fff; font-size: 40px;" },
+        { width: 109, ...alignCenter, style: "color: #000; font-size: 30px;" },
+        { width: 108, ...alignCenter, style: "color: #fff; font-size: 30px;" },
+        { width: 75,  ...alignCenter, style: "color: #fff; font-size: 30px;" }
+    ];
+
+    dom.innerHTML += table(startRef, 10, { left: 1030, top: 159}, 8, 83, cols);
 }
